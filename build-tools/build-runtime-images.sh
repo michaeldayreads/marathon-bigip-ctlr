@@ -19,7 +19,7 @@ ls -la $WKDIR
 
 docker build --force-rm ${NO_CACHE_ARGS} \
   -t $IMG_TAG \
-  --label DATE_STAMP=$DATE_STAMP \
+  --label BUILD_STAMP=$BUILD_STAMP \
   --label BUILD_TYPE=RUNTIME \
   -f $WKDIR/Dockerfile.runtime \
   $WKDIR

@@ -22,6 +22,7 @@ script:
   - export IMG_TAG="${BASE_PUSH_TARGET}:${TRAVIS_COMMIT}"
   - export BUILD_IMG_TAG="${BASE_PUSH_TARGET}-devel:${TRAVIS_COMMIT}"
   - export COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
+  - export DATE_STAMP=$(date +%s)
   - ./build-tools/build-devel-image.sh
   - ./build-tools/run-in-docker.sh make python-sanity
   - ./build-tools/build-runtime-images.sh
@@ -32,7 +33,7 @@ script:
       docker push "$IMG_TAG"
       docker push "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH"
       docker push \
-      "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH-n-$TRAVIS_BUILD_NUMBER-id-$TRAVIS_BUILD_ID"
+      "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH-n-$TRAVIS_BUILD_NUMBER-id-$TRAVIS_BUILD_ID-$DATE_STAMP"
     fi
   - |
     if [ "$TRAVIS_REPO_SLUG" == "F5Networks/k8s-bigip-ctlr" -o "$COVERALLS_REPO_TOKEN" ]; then

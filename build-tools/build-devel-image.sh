@@ -24,7 +24,7 @@ cp $CURDIR/../marathon-*-requirements.txt $WKDIR
 
 docker build --force-rm ${NO_CACHE_ARGS} \
   -t $BUILD_IMG_TAG \
-  --label BUILD_STAMP=$BUILD_STAMP \
+  --label BUILD_ID_TAG=$BUILD_ID_TAG \
   --label BUILD_TYPE=DEVEL \
   -f $WKDIR/Dockerfile.builder \
   $WKDIR

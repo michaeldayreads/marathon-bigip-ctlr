@@ -26,14 +26,14 @@ script:
   - ./build-tools/build-devel-image.sh
   - ./build-tools/run-in-docker.sh make python-sanity
   - ./build-tools/build-runtime-images.sh
-  - docker tag "$IMG_TAG" "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH"
-  - docker tag "$IMG_TAG" "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH-$BUILD_STAMP"
   - |
     if [ "$DOCKER_READY" ]; then
       docker push "$IMG_TAG"
+      docker tag "$IMG_TAG" "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH"
+      docker tag "$IMG_TAG" "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH-$BUILD_STAMP"
+      docker push "$IMG_TAG"
       docker push "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH"
       docker push "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH-$BUILD_STAMP"
-      docker push "$BASE_PUSH_TARGET"
     fi
   - |
     if [ "$TRAVIS_REPO_SLUG" == "F5Networks/k8s-bigip-ctlr" -o "$COVERALLS_REPO_TOKEN" ]; then

@@ -33,6 +33,7 @@ script:
       docker push "$IMG_TAG"
       docker push "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH"
       docker push "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH-$BUILD_STAMP"
+      docker push "$BASE_PUSH_TARGET"
     fi
   - |
     if [ "$TRAVIS_REPO_SLUG" == "F5Networks/k8s-bigip-ctlr" -o "$COVERALLS_REPO_TOKEN" ]; then

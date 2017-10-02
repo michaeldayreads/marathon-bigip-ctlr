@@ -21,6 +21,7 @@ script:
     fi
   - export IMG_TAG="${BASE_PUSH_TARGET}:${TRAVIS_COMMIT}"
   - export BUILD_IMG_TAG="${BASE_PUSH_TARGET}-devel:${TRAVIS_COMMIT}"
+  - export BUILD_STAMP=devel-$TRAVIS_BRANCH-n-$TRAVIS_BUILD_NUMBER-id-$TRAVIS_BUILD_ID-$(date +%s)
   - export COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
   - ./build-tools/build-devel-image.sh
   - ./build-tools/run-in-docker.sh make python-sanity
@@ -29,7 +30,7 @@ script:
     if [ "$DOCKER_READY" ]; then
       docker tag "$IMG_TAG" "$BASE_PUSH_TARGET"
       docker tag "$IMG_TAG" "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH"
-      docker tag "$IMG_TAG" "$BASE_PUSH_TARGET:devel-$TRAVIS_BRANCH-n-$TRAVIS_BUILD_NUMBER-id-$TRAVIS_BUILD_ID"
+      docker tag "$IMG_TAG" "$BASE_PUSH_TARGET:$BUILD_STAMP"
       docker push "$BASE_PUSH_TARGET"
     fi
   - |
